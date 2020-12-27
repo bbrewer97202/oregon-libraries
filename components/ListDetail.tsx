@@ -1,18 +1,35 @@
-import * as React from 'react'
+import * as React from 'react';
+import dynamic from 'next/dynamic';
+import { Library } from '../types';
 
-import { User } from '../interfaces'
+const Map = dynamic(() => import('./Map/Map'), { ssr: false });
 
 type ListDetailProps = {
-  item: User
-}
+  item: Library;
+};
 
-const ListDetail: React.FunctionComponent<ListDetailProps> = ({
-  item: user,
-}) => (
-  <div>
-    <h1>Detail for {user.name}</h1>
-    <p>ID: {user.id}</p>
-  </div>
-)
+const ListDetail: React.FunctionComponent<ListDetailProps> = ({ item: library }) => {
+  const { branchName, fullAddress, libraryName, website = [], geolocation } = library;
 
-export default ListDetail
+  // website links
+  const webLinks = website.map((site) => {
+    if (site)
+      return (
+        <a href={site} key={site} target="_blank" rel="noopener noreferrer">
+          {site}
+        </a>
+      );
+  });
+  return (
+    <div>
+      <h2>{libraryName}</h2>
+      {branchName ? <h3>{branchName}</h3> : null}
+      <div>{fullAddress}</div>
+      {webLinks}
+
+      <Map location={geolocation} />
+    </div>
+  );
+};
+
+export default ListDetail;
