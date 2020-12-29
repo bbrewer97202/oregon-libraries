@@ -1,4 +1,13 @@
-.leaflet-container {
-  width: 400px;
-  height: 400px;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: sans-serif;
+}
+
+p {
+  margin: 0;
 }

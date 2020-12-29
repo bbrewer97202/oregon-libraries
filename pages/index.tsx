@@ -1,15 +1,14 @@
-import Link from 'next/link'
-import Layout from '../components/Layout'
+import Layout from '../components/Layout';
+import HeroLink from '../components/HeroLink/HeroLink';
 
 const IndexPage = () => (
-  <Layout title="Home | Next.js + TypeScript Example">
-    <h1>Hello Next.js 👋</h1>
-    <p>
-      <Link href="/about">
-        <a>About</a>
-      </Link>
-    </p>
+  <Layout title="Oregon Libraries">
+    <HeroLink href="/library/type/Academic" label="Academic" icon="academic" />
+    <HeroLink href="/library/type/Public" label="Public" icon="public" />
+    <HeroLink href="/library/type/Tribal" label="Tribal" icon="tribal" />
+    <HeroLink href="/library/type/Special" label="Special" icon="special" />
+    <HeroLink href="/library/type/Volunteer" label="Volunteer" icon="volunteer" />
   </Layout>
-)
+);
 
-export default IndexPage
+export default IndexPage;

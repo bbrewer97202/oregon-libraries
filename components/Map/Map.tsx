@@ -1,30 +1,25 @@
 import * as React from 'react';
-import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
+import { MapContainer, Marker, TileLayer } from 'react-leaflet';
+import styles from './Map.module.css';
 
 interface Props {
+  name: string;
   location: string;
 }
 
 type LatLongCoordinates = [number, number];
 
-const LibraryMap: React.FunctionComponent<Props> = ({ location }) => {
+const LibraryMap: React.FunctionComponent<Props> = ({ name, location }) => {
   const coordinates = getCoordinatesFromLocation(location);
-  console.log('coordinates: ', coordinates);
   if (!coordinates) return null;
   return (
-    <Map center={coordinates} zoom={13}>
+    <MapContainer center={coordinates} zoom={13} className={styles.container}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
-      <Marker position={coordinates}>
-        <Popup>
-          A pretty CSS3 popup.
-          <br />
-          Easily customizable.
-        </Popup>
-      </Marker>
-    </Map>
+      <Marker position={coordinates} />
+    </MapContainer>
   );
 };
 
