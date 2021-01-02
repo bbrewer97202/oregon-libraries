@@ -1,22 +1,5 @@
 [
   {
-    "id": "row-hh29.dss6_u4ru",
-    "fullLibraryName": "University Of Oregon - John E. Jaqua Law Library",
-    "libraryName": "University Of Oregon",
-    "branchName": "John E. Jaqua Law Library",
-    "fullAddress": "248 G Law Center, Eugene, OR 97403-1221",
-    "address": "248 G Law Center",
-    "city": "Eugene",
-    "county": "Lane County",
-    "zipCode": "97403-1221",
-    "libraryType": "Academic",
-    "website": [
-      "http://libweb.uoregon.edu/law/",
-      null
-    ],
-    "slug": "university-of-oregon-john-e-jaqua-law-library"
-  },
-  {
     "id": "row-6au8.a8i8.vabr",
     "fullLibraryName": "Leaburg Library",
     "libraryName": "Leaburg Library",
@@ -34,22 +17,33 @@
     "slug": "leaburg-library"
   },
   {
-    "id": "row-irtw.7awk-3mx6",
-    "fullLibraryName": "Winston Library",
-    "libraryName": "Winston Library",
-    "fullAddress": "440 SE Grape Ave, Winston, OR 97496",
-    "address": "440 SE Grape Ave",
-    "city": "Winston",
-    "county": "Douglas County",
-    "zipCode": "97496",
-    "libraryType": "Public",
+    "id": "row-ag85.52fy~jsza",
+    "fullLibraryName": "University Of Oregon - Pine Mountain Observatory Library",
+    "libraryName": "University Of Oregon",
+    "branchName": "Pine Mountain Observatory Library",
+    "fullAddress": "Bend-Burns Star Route 702, Bend, OR 97701",
+    "address": "Bend-Burns Star Route 702",
+    "city": "Bend",
+    "zipCode": "97701",
+    "libraryType": "Academic",
+    "slug": "university-of-oregon-pine-mountain-observatory-library"
+  },
+  {
+    "id": "row-hh29.dss6_u4ru",
+    "fullLibraryName": "University Of Oregon - John E. Jaqua Law Library",
+    "libraryName": "University Of Oregon",
+    "branchName": "John E. Jaqua Law Library",
+    "fullAddress": "248 G Law Center, Eugene, OR 97403-1221",
+    "address": "248 G Law Center",
+    "city": "Eugene",
+    "county": "Lane County",
+    "zipCode": "97403-1221",
+    "libraryType": "Academic",
     "website": [
-      "https://winslibrary.com/",
+      "http://libweb.uoregon.edu/law/",
       null
     ],
-    "membership": "NONE",
-    "geolocation": "POINT (-123.40718700000001 43.11606100000001)",
-    "slug": "winston-library"
+    "slug": "university-of-oregon-john-e-jaqua-law-library"
   },
   {
     "id": "row-vtm7.8t3j-fak7",
@@ -300,21 +294,6 @@
     "membership": "NONE",
     "geolocation": "POINT (-123.060682 43.798723)",
     "slug": "cottage-grove-public-library"
-  },
-  {
-    "id": "row-ztvd-8r9i.mwqn",
-    "fullLibraryName": "Multnomah County Library - Holgate Library",
-    "libraryName": "Multnomah County Library",
-    "branchName": "Holgate Library",
-    "fullAddress": "7905 SE Holgate Blvd, Portland, OR 97206",
-    "address": "7905 SE Holgate Blvd",
-    "city": "Portland",
-    "county": "Multnomah",
-    "zipCode": "97206",
-    "libraryType": "Public",
-    "membership": "NONE",
-    "geolocation": "POINT (-122.582112 45.490254)",
-    "slug": "multnomah-county-library-holgate-library"
   },
   {
     "id": "row-xzc3.wqmz-dbic",
@@ -1308,6 +1287,21 @@
     "slug": "oregon-trail-library-district"
   },
   {
+    "id": "row-ztvd-8r9i.mwqn",
+    "fullLibraryName": "Multnomah County Library - Holgate Library",
+    "libraryName": "Multnomah County Library",
+    "branchName": "Holgate Library",
+    "fullAddress": "7905 SE Holgate Blvd, Portland, OR 97206",
+    "address": "7905 SE Holgate Blvd",
+    "city": "Portland",
+    "county": "Multnomah",
+    "zipCode": "97206",
+    "libraryType": "Public",
+    "membership": "NONE",
+    "geolocation": "POINT (-122.582112 45.490254)",
+    "slug": "multnomah-county-library-holgate-library"
+  },
+  {
     "id": "row-jr35.kj9v_vajs",
     "fullLibraryName": "Eugene Public Library - Downtown Library",
     "libraryName": "Eugene Public Library",
@@ -1935,21 +1929,6 @@
     "slug": "deschutes-public-library-district"
   },
   {
-    "id": "row-7szm.2df2_cck3",
-    "fullLibraryName": "Tillamook County Library - Tillamook County Library Bookmobile",
-    "libraryName": "Tillamook County Library",
-    "branchName": "Tillamook County Library Bookmobile",
-    "fullAddress": "1716 Third St, Tillamook, OR 97141",
-    "address": "1716 Third St",
-    "city": "Tillamook",
-    "county": "Tillamook",
-    "zipCode": "97141",
-    "libraryType": "Public",
-    "membership": "NONE",
-    "geolocation": "POINT (-123.84654099999999 45.456324)",
-    "slug": "tillamook-county-library-tillamook-county-library-bookmobile"
-  },
-  {
     "id": "row-6u77_zpi8~9uzj",
     "fullLibraryName": "Lake County Library - Silver Lake Branch Library",
     "libraryName": "Lake County Library",
@@ -2484,6 +2463,24 @@
     "slug": "oregon-state-university-guin-library"
   },
   {
+    "id": "row-irtw.7awk-3mx6",
+    "fullLibraryName": "Winston Library",
+    "libraryName": "Winston Library",
+    "fullAddress": "440 SE Grape Ave, Winston, OR 97496",
+    "address": "440 SE Grape Ave",
+    "city": "Winston",
+    "county": "Douglas County",
+    "zipCode": "97496",
+    "libraryType": "Public",
+    "website": [
+      "https://winslibrary.com/",
+      null
+    ],
+    "membership": "NONE",
+    "geolocation": "POINT (-123.40718700000001 43.11606100000001)",
+    "slug": "winston-library"
+  },
+  {
     "id": "row-cgc8_bcac.275j",
     "fullLibraryName": "Clackamas Community College Library",
     "libraryName": "Clackamas Community College Library",
@@ -2571,6 +2568,21 @@
     ],
     "geolocation": "POINT (-123.07467400000002 44.039165)",
     "slug": "gutenberg-college"
+  },
+  {
+    "id": "row-7szm.2df2_cck3",
+    "fullLibraryName": "Tillamook County Library - Tillamook County Library Bookmobile",
+    "libraryName": "Tillamook County Library",
+    "branchName": "Tillamook County Library Bookmobile",
+    "fullAddress": "1716 Third St, Tillamook, OR 97141",
+    "address": "1716 Third St",
+    "city": "Tillamook",
+    "county": "Tillamook",
+    "zipCode": "97141",
+    "libraryType": "Public",
+    "membership": "NONE",
+    "geolocation": "POINT (-123.84654099999999 45.456324)",
+    "slug": "tillamook-county-library-tillamook-county-library-bookmobile"
   },
   {
     "id": "row-zjjz.n9ag.3py6",
@@ -4168,19 +4180,6 @@
     "slug": "mosier-valley-library"
   },
   {
-    "id": "row-br6z.neyx_bq4k",
-    "fullLibraryName": "Lowell Public Library, Closed",
-    "libraryName": "Lowell Public Library, Closed",
-    "fullAddress": "107 E. 3rd St., Lowell, OR 97452",
-    "address": "107 E. 3rd St.",
-    "city": "Lowell",
-    "county": "Lane",
-    "zipCode": "97452",
-    "libraryType": "Public",
-    "geolocation": "POINT (-122.78174700000001 43.921842)",
-    "slug": "lowell-public-library-closed"
-  },
-  {
     "id": "row-z8uh.a4rp~3pqt",
     "fullLibraryName": "Siuslaw Public Library District",
     "libraryName": "Siuslaw Public Library District",
@@ -4373,18 +4372,6 @@
     "membership": "NONE",
     "geolocation": "POINT (-120.544083 42.693862)",
     "slug": "lake-county-library-paisley-branch-library"
-  },
-  {
-    "id": "row-ag85.52fy~jsza",
-    "fullLibraryName": "University Of Oregon - Pine Mountain Observatory Library",
-    "libraryName": "University Of Oregon",
-    "branchName": "Pine Mountain Observatory Library",
-    "fullAddress": "Bend-Burns Star Route 702, Bend, OR 97701",
-    "address": "Bend-Burns Star Route 702",
-    "city": "Bend",
-    "zipCode": "97701",
-    "libraryType": "Academic",
-    "slug": "university-of-oregon-pine-mountain-observatory-library"
   },
   {
     "id": "row-5un8.vm6k-8s74",
@@ -5148,6 +5135,19 @@
     "membership": "NONE",
     "geolocation": "POINT (-123.39686999999999 42.695344)",
     "slug": "josephine-community-library-district-wolf-creek-branch-library"
+  },
+  {
+    "id": "row-br6z.neyx_bq4k",
+    "fullLibraryName": "Lowell Public Library, Closed",
+    "libraryName": "Lowell Public Library, Closed",
+    "fullAddress": "107 E. 3rd St., Lowell, OR 97452",
+    "address": "107 E. 3rd St.",
+    "city": "Lowell",
+    "county": "Lane",
+    "zipCode": "97452",
+    "libraryType": "Public",
+    "geolocation": "POINT (-122.78174700000001 43.921842)",
+    "slug": "lowell-public-library-closed"
   },
   {
     "id": "row-yung-s8u9.9df6",

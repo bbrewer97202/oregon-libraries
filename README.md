@@ -13,3 +13,9 @@ Directory of Oregon libraries with content from [data.gov](https://catalog.data.
 3. browse/search by county
 4. use SWR or comparable
 
+
+## process
+1. delete data.db
+2. run migrations, client update, and create script
+
+        rm data/data.db && npx prisma migrate dev --preview-feature && npx prisma generate && npm run generate2

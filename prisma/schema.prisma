@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Branch {
+  id   Int    @id @default(autoincrement())
+  name String
+  address String
+  library Library @relation(fields: [libraryId], references: [id])
+  libraryId Int
+  city City @relation(fields: [cityId], references: [id])
+  cityId Int
+  county County @relation(fields: [countyId], references: [id])
+  countyId Int
+  zipCode ZipCode @relation(fields: [zipCodeId], references: [id])
+  zipCodeId Int
+  type LibraryType @relation(fields: [typeId], references: [id])
+  typeId Int
+}
+
+model County {
+  id   Int    @id @default(autoincrement())
+  name String
+}
+
+model City {
+  id   Int    @id @default(autoincrement())
+  name String
+}
+
+model ZipCode {
+  id   Int    @id @default(autoincrement())
+  name String
+}
+
+model Library {
+  id   Int    @id @default(autoincrement())
+  name String
+}
+
+model LibraryType {
+  id   Int    @id @default(autoincrement())
+  name String
+}

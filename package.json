@@ -7,9 +7,11 @@
     "start": "next start",
     "type-check": "tsc",
     "generate-data-alternate-wip": "ts-node --project data/tsconfig.json data/generate.ts",
-    "generate-data": "ts-node --compiler-options=\"{\\\"module\\\": \\\"commonjs\\\"}\" data/generate.ts"
+    "generate-data": "ts-node --compiler-options=\"{\\\"module\\\": \\\"commonjs\\\"}\" data/generate.ts",
+    "generate2": "ts-node --compiler-options=\"{\\\"module\\\": \\\"commonjs\\\"}\" data/generate2.ts"
   },
   "dependencies": {
+    "@prisma/client": "^2.13.1",
     "leaflet": "^1.7.1",
     "next": "^10.0.4",
     "react": "^17.0.1",
@@ -19,6 +21,7 @@
     "slugify": "^1.4.6"
   },
   "devDependencies": {
+    "@prisma/cli": "^2.13.1",
     "@types/leaflet": "^1.5.19",
     "@types/node": "^14.14.16",
     "@types/node-fetch": "^2.5.7",
