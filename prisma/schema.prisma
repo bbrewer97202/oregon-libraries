@@ -11,14 +11,15 @@ model Branch {
   id   Int    @id @default(autoincrement())
   name String
   address String
+  geolocation String?
   library Library @relation("BranchHasLibrary", fields: [libraryId], references: [id])
   libraryId Int
   librayType LibraryType @relation("BranchHasLibraryType", fields: [libraryTypeId], references: [id])
   libraryTypeId Int
   city City @relation("BranchHasCity", fields: [cityId], references: [id])
   cityId  Int
-  county County @relation("BranchHasCounty", fields: [countyId], references: [id])
-  countyId  Int
+  county County? @relation("BranchHasCounty", fields: [countyId], references: [id])
+  countyId  Int?
   zipCode ZipCode @relation("BranchHasZipCode", fields: [zipCodeId], references: [id])
   zipCodeId  Int
 }

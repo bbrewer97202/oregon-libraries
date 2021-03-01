@@ -2,19 +2,18 @@ export type LibraryType = 'Academic' | 'Public' | 'Special' | 'Tribal' | 'Volunt
 
 export type LibraryMembership = 'CCRLS' | 'UCSLD' | 'WCCLS' | 'NONE';
 
+export interface Branch {
+    libraryName: string,
+    branchName?: string,
+    address: string,
+    city: string,
+    county?: string,
+    zipCode: string,
+    libraryType: LibraryType | string,
+    membership?: LibraryMembership | string
+}
+
 export interface Library {
-  id: string;
-  slug: string;
-  fullLibraryName: string;
-  libraryName: string;
-  branchName?: string;
-  fullAddress: string;
-  address: string;
-  city: string;
-  county: string;
-  zipCode: string;
-  libraryType: LibraryType;
-  website?: string[];
-  membership?: LibraryMembership;
-  geolocation: string;
+    name: string,
+    branches: Branch[]
 }

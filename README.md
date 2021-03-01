@@ -6,7 +6,12 @@ Directory of Oregon libraries with content from [data.gov](https://catalog.data.
 
     npm run generate-data
 
-## TODO
+## short term TODO
+
+- county is broken
+- seed trace
+
+## longer term TODO
 
 1. Direct link to each type of library type (e.g. Volunteer, Tribal, etc.)
    http://localhost:3000/library/type/Academic
@@ -16,6 +21,7 @@ Directory of Oregon libraries with content from [data.gov](https://catalog.data.
 
 ## process
 
+0. npm run generate-data
 1. rm data/data.db && npx prisma generate
 2. npx prisma migrate dev --name init --preview-feature
 3. npx prisma db seed --preview-feature

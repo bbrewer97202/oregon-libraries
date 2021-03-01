@@ -1,44 +1,90 @@
 import { PrismaClient } from '@prisma/client';
+import { Library } from '../types/index';
+import sourceData from '../data/data.json';
+
 const prisma = new PrismaClient();
 
-async function main() {
+async function main(libraryList: Library[]) {
+    for (const library of libraryList) {
+        for (const branch of library.branches) {
 
-    const test = await prisma.branch.create({
-        data: {
-            name: "E P Kellenberger Library",
-            address: "1188 Kincaid",
-            library: {
-                create: {
-                    name: "Parent Library"
-                }
-            },
-            librayType: {
-                create: {
-                    name: "Research"
-                }
-            },
-            city: {
-                create: {
-                    name: 'Eugene'
-                }
-            },
-            county: {
-                create: {
-                    name: 'Lane'
-                }
-            },
-            zipCode: {
-                create: {
-                    name: '97401-3727'
+            const branchName = branch.branchName || branch.libraryName;
+
+            const data = {
+                name: branchName,
+                address: branch.address,
+                library: {
+                    connectOrCreate: {
+                        where: {
+                            name: library.name
+                        },
+                        create: {
+                            name: library.name
+                        }
+                    }
+                },
+                librayType: {
+                    connectOrCreate: {
+                        where: {
+                            name: branch.libraryType
+                        },
+                        create: {
+                            name: branch.libraryType
+                        }
+                    }
+                },
+                city: {
+                    connectOrCreate: {
+                        where: {
+                            name: branch.city
+                        },
+                        create: {
+                            name: branch.city
+                        }
+                    }
+                },
+                // county: {
+                //     connectOrCreate: {
+                //         where: {
+                //             name: branch.county
+                //         },
+                //         create: {
+                //             name: branch.county
+                //         }
+                //     }
+                // },
+                zipCode: {
+                    connectOrCreate: {
+                        where: {
+                            name: branch.zipCode
+                        },
+                        create: {
+                            name: branch.zipCode
+                        }
+                    }
                 }
             }
-        }
-    });
 
-    console.log('test', test);
+            // if (branch.county) {
+            //     data.county = {
+            //         connectOrCreate: {
+            //             where: {
+            //                 name: branch.county
+            //             },
+            //             create: {
+            //                 name: branch.county
+            //             }
+            //         }
+            //     }
+            // }
+
+            const branchEntry = await prisma.branch.create({ data });
+            console.log('branch: ', branchEntry);
+        }
+    }
 }
 
-main()
+main(sourceData)
     .catch((error) => {
         console.log('error', error);
         process.exit(1);
