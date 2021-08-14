@@ -5,91 +5,77 @@ import sourceData from '../data/data.json';
 const prisma = new PrismaClient();
 
 async function main(libraryList: Library[]) {
-    for (const library of libraryList) {
-        for (const branch of library.branches) {
+  for (const library of libraryList) {
+    for (const branch of library.branches) {
+      const { branchName } = branch;
 
-            const branchName = branch.branchName || branch.libraryName;
+      const data = {
+        name: branchName,
+        address: branch.address,
+        // geolocation: branch.geolocation,
+        library: {
+          connectOrCreate: {
+            where: {
+              name: library.name,
+            },
+            create: {
+              name: library.name,
+            },
+          },
+        },
+        librayType: {
+          connectOrCreate: {
+            where: {
+              name: branch.libraryType,
+            },
+            create: {
+              name: branch.libraryType,
+            },
+          },
+        },
+        city: {
+          connectOrCreate: {
+            where: {
+              name: branch.city,
+            },
+            create: {
+              name: branch.city,
+            },
+          },
+        },
+        county: {
+          connectOrCreate: {
+            where: {
+              name: branch.county,
+            },
+            create: {
+              name: branch.county,
+            },
+          },
+        },
+        zipCode: {
+          connectOrCreate: {
+            where: {
+              name: branch.zipCode,
+            },
+            create: {
+              name: branch.zipCode,
+            },
+          },
+        },
+      };
 
-            const data = {
-                name: branchName,
-                address: branch.address,
-                library: {
-                    connectOrCreate: {
-                        where: {
-                            name: library.name
-                        },
-                        create: {
-                            name: library.name
-                        }
-                    }
-                },
-                librayType: {
-                    connectOrCreate: {
-                        where: {
-                            name: branch.libraryType
-                        },
-                        create: {
-                            name: branch.libraryType
-                        }
-                    }
-                },
-                city: {
-                    connectOrCreate: {
-                        where: {
-                            name: branch.city
-                        },
-                        create: {
-                            name: branch.city
-                        }
-                    }
-                },
-                // county: {
-                //     connectOrCreate: {
-                //         where: {
-                //             name: branch.county
-                //         },
-                //         create: {
-                //             name: branch.county
-                //         }
-                //     }
-                // },
-                zipCode: {
-                    connectOrCreate: {
-                        where: {
-                            name: branch.zipCode
-                        },
-                        create: {
-                            name: branch.zipCode
-                        }
-                    }
-                }
-            }
-
-            // if (branch.county) {
-            //     data.county = {
-            //         connectOrCreate: {
-            //             where: {
-            //                 name: branch.county
-            //             },
-            //             create: {
-            //                 name: branch.county
-            //             }
-            //         }
-            //     }
-            // }
-
-            const branchEntry = await prisma.branch.create({ data });
-            console.log('branch: ', branchEntry);
-        }
+      const branchEntry = await prisma.branch.create({ data });
+      console.log('branch: ', branchEntry);
     }
+  }
 }
 
-main(sourceData)
-    .catch((error) => {
-        console.log('error', error);
-        process.exit(1);
-    })
-    .finally(async () => {
-        await prisma.$disconnect();
-    }
-    );
+main(sourceData as Library[])
+  .catch((error) => {
+    console.log('error', error);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

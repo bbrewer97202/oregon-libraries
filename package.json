@@ -4,13 +4,14 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start",
     "type-check": "tsc",
     "generate-data": "ts-node scripts/generate-data-from-api-json.ts",
     "generate-data:example": "ts-node scripts/generate-data-from-api-json.ts --example=true",
     "generate-data-client": "npx prisma generate",
-    "db:create": "npm run db:remove && npx prisma migrate dev --name init --preview-feature",
-    "db:remove": "rm ./data/data.db || true && rm ./data/data.db-journal"
+    "db:create": "npm run db:remove && npm run generate-data-client && npx prisma migrate dev --name init --preview-feature",
+    "db:seed": "npx prisma db seed --preview-feature",
+    "db:remove": "rimraf data/migrations && rimraf data/data.db && rimraf data/data.db-journal",
+    "initialize": "npm run generate-data && npm run db:create && npm run generate-data-client && npm run db:seed"
   },
   "dependencies": {
     "@prisma/client": "^2.29.1",
@@ -42,6 +43,7 @@
     "eslint-plugin-react": "^7.24.0",
     "prettier": "^2.3.2",
     "prisma": "^2.29.1",
+    "rimraf": "^3.0.2",
     "ts-node": "^9.1.1",
     "typescript": "^4.3.5"
   },
