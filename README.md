@@ -42,8 +42,8 @@ If you want to get into the detailed steps that `npm run initialize` manages, ru
 
 ### Short Term
 
-- seed trace
 - add to seed: geolocation
+- the entire front end currently broken & unrealized
 
 ### Long term
 
