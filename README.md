@@ -21,8 +21,8 @@ Directory of Oregon libraries with content from [data.gov](https://catalog.data.
 
 ## process
 
-0. npm run generate-data
-1. rm data/data.db && npx prisma generate
-2. npx prisma migrate dev --name init --preview-feature
+0. npm run generate-data (to run from JSON data on disc without hitting api: 'npm run generate-data:example')
+1. npm run generate-data-client
+2. npm run db:create
 3. npx prisma db seed --preview-feature
 4. npx prisma studio

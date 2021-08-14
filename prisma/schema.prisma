@@ -1,55 +1,65 @@
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
 }
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 model Branch {
-  id   Int    @id @default(autoincrement())
-  name String
-  address String
-  geolocation String?
-  library Library @relation("BranchHasLibrary", fields: [libraryId], references: [id])
-  libraryId Int
-  librayType LibraryType @relation("BranchHasLibraryType", fields: [libraryTypeId], references: [id])
-  libraryTypeId Int
-  city City @relation("BranchHasCity", fields: [cityId], references: [id])
-  cityId  Int
-  county County? @relation("BranchHasCounty", fields: [countyId], references: [id])
-  countyId  Int?
-  zipCode ZipCode @relation("BranchHasZipCode", fields: [zipCodeId], references: [id])
-  zipCodeId  Int
+    id            Int         @id @default(autoincrement())
+    name          String
+    address       String
+    geolocation   String?
+    library       Library     @relation("BranchHasLibrary", fields: [libraryId], references: [id])
+    libraryId     Int
+    librayType    LibraryType @relation("BranchHasLibraryType", fields: [libraryTypeId], references: [id])
+    libraryTypeId Int
+    city          City        @relation("BranchHasCity", fields: [cityId], references: [id])
+    cityId        Int
+    county        County      @relation("BranchHasCounty", fields: [countyId], references: [id])
+    countyId      Int
+    zipCode       ZipCode     @relation("BranchHasZipCode", fields: [zipCodeId], references: [id])
+    zipCodeId     Int
+    Library       Library     @relation(fields: [libraryId], references: [id])
+    LibraryType   LibraryType @relation(fields: [libraryTypeId], references: [id])
+    County        County      @relation(fields: [countyId], references: [id])
+    City          City        @relation(fields: [cityId], references: [id])
+    ZipCode       ZipCode     @relation(fields: [zipCodeId], references: [id])
 }
 
 model Library {
-  id   Int    @id @default(autoincrement())
-  name String @unique
-  branch Branch[]
+    id     Int      @id @default(autoincrement())
+    name   String   @unique
+    branch Branch[]
+    Branch Branch[] @relation("BranchHasLibrary")
 }
 
 model LibraryType {
-  id   Int    @id @default(autoincrement())
-  name String @unique
-  branch Branch[]
+    id     Int      @id @default(autoincrement())
+    name   String   @unique
+    branch Branch[]
+    Branch Branch[] @relation("BranchHasLibraryType")
 }
 
 model County {
-  id   Int    @id @default(autoincrement())
-  name String @unique
-  branch Branch[]
+    id     Int      @id @default(autoincrement())
+    name   String   @unique
+    branch Branch[]
+    Branch Branch[] @relation("BranchHasCounty")
 }
 
 model City {
-  id   Int    @id @default(autoincrement())
-  name String @unique
-  branch  Branch[]
+    id     Int      @id @default(autoincrement())
+    name   String   @unique
+    branch Branch[]
+    Branch Branch[] @relation("BranchHasCity")
 }
 
 model ZipCode {
-  id   Int    @id @default(autoincrement())
-  name String @unique
-  branch Branch[]
+    id     Int      @id @default(autoincrement())
+    name   String   @unique
+    branch Branch[]
+    Branch Branch[] @relation("BranchHasZipCode")
 }

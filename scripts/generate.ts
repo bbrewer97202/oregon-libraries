@@ -2,14 +2,13 @@ import fs from 'fs';
 import path from 'path';
 import { promisify } from 'util';
 import fetch from 'node-fetch';
-// import slugify from 'slugify';
 import { Library, Branch } from '../types/index';
 // import tmpSavedSource from './saved-source-2020-05-02.json';
 
 type ApiEntryValue = number | string | null;
 type ApiEntry = ApiEntryValue[];
 type ApiSource = {
-    meta: object;
+    meta: Record<string, unknown>;
     data: ApiEntry[];
 };
 type ApiResponse = ApiSource | null;
@@ -46,11 +45,11 @@ async function loadFromSource(url: string): Promise<ApiResponse> {
 function createLibraryEntry(entry: ApiEntry): Branch {
     const sourceKeyMap: SourceKeyEntry[] = [
         {
-            index: 9,
+            index: 8,
             field: 'libraryName',
         },
         {
-            index: 10,
+            index: 9,
             field: 'branchName',
         },
         {
@@ -91,17 +90,13 @@ function createLibraryEntry(entry: ApiEntry): Branch {
         const { index, field } = key;
         if (entry[index]) {
             // lib[field] = entry[index]; // !@$@#%!
+            console.log(`field: ${field} = ${entry[index]}`);
             lib = { ...lib, [field]: entry[index] };
         }
         return lib;
     }, {} as Branch);
 
     // TODO: "Douglas County" > "Douglas"
-
-    // library.slug = slugify(library.libraryName, {
-    //     lower: true,
-    //     strict: true,
-    // });
 
     return library;
 }
