@@ -1,20 +1,64 @@
-export type LibraryType = 'Academic' | 'Public' | 'Special' | 'Tribal' | 'Volunteer';
+export type LibraryType = 'Academic' | 'Public' | 'Special' | 'Tribal' | 'Volunteer' | 'Unknown';
 
-export type LibraryMembership = 'CCRLS' | 'UCSLD' | 'WCCLS' | 'NONE';
+export type LibraryMembership = 'CCRLS' | 'UCSLD' | 'WCCLS' | 'NONE' | 'UNKNOWN';
 
-export interface Library {
-  id: string;
-  slug: string;
-  fullLibraryName: string;
+export type County =
+  | 'Baker'
+  | 'Benton'
+  | 'Clackamas'
+  | 'Clatsop'
+  | 'Columbia'
+  | 'Coos'
+  | 'Crook'
+  | 'Curry'
+  | 'Deschutes'
+  | 'Douglas'
+  | 'Gilliam'
+  | 'Grant'
+  | 'Harney'
+  | 'Hood River'
+  | 'Jackson'
+  | 'Jefferson'
+  | 'Josephine'
+  | 'Klamath'
+  | 'Lake'
+  | 'Lane'
+  | 'Lincoln'
+  | 'Linn'
+  | 'Malheur'
+  | 'Marion'
+  | 'Morrow'
+  | 'Multnomah'
+  | 'Polk'
+  | 'Sherman'
+  | 'Tillamook'
+  | 'Umatilla'
+  | 'Union'
+  | 'Wallowa'
+  | 'Wasco'
+  | 'Washington'
+  | 'Wheeler'
+  | 'Yamhill'
+  | 'Unknown';
+
+export interface Branch {
   libraryName: string;
-  branchName?: string;
-  fullAddress: string;
+  branchName: string;
   address: string;
   city: string;
   county: string;
   zipCode: string;
+  geolocation: string | null;
+  phone: string | null;
+  email: string | null;
   libraryType: LibraryType;
-  website?: string[];
-  membership?: LibraryMembership;
-  geolocation: string;
+  membership: LibraryMembership;
+  directorName: string | null;
+  directorPhone: string | null;
+  directorEmail: string | null;
+}
+
+export interface Library {
+  name: string;
+  branches: Branch[];
 }

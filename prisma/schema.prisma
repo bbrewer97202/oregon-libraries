@@ -1,0 +1,57 @@
+datasource db {
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model Library {
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    name      String   @unique
+    branch    Branch[]
+}
+
+model Branch {
+    id            Int         @id @default(autoincrement())
+    createdAt     DateTime    @default(now())
+    name          String
+    address       String
+    // geolocation   String
+    library       Library     @relation(fields: [libraryId], references: [id])
+    libraryId     Int
+    librayType    LibraryType @relation("BranchHasLibraryType", fields: [libraryTypeId], references: [id])
+    libraryTypeId Int
+    city          City        @relation("BranchHasCity", fields: [cityId], references: [id])
+    cityId        Int
+    county        County      @relation("BranchHasCounty", fields: [countyId], references: [id])
+    countyId      Int
+    zipCode       ZipCode     @relation("BranchHasZipCode", fields: [zipCodeId], references: [id])
+    zipCodeId     Int
+}
+
+model LibraryType {
+    id     Int      @id @default(autoincrement())
+    name   String   @unique
+    Branch Branch[] @relation("BranchHasLibraryType")
+}
+
+model City {
+    id     Int      @id @default(autoincrement())
+    name   String   @unique
+    Branch Branch[] @relation("BranchHasCity")
+}
+
+model County {
+    id     Int      @id @default(autoincrement())
+    name   String   @unique
+    Branch Branch[] @relation("BranchHasCounty")
+}
+
+model ZipCode {
+    id     Int      @id @default(autoincrement())
+    name   String   @unique
+    Branch Branch[] @relation("BranchHasZipCode")
+}
