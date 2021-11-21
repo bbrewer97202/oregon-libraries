@@ -17,7 +17,6 @@
     "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
-    "@prisma/client": "^2.30.3",
     "@types/got": "^9.6.12",
     "got": "^11.8.3",
     "leaflet": "^1.7.1",
@@ -30,6 +29,7 @@
     "slugify": "^1.6.2"
   },
   "devDependencies": {
+    "@prisma/client": "^3.5.0",
     "@types/leaflet": "^1.7.6",
     "@types/node": "^16.11.9",
     "@types/react": "^17.0.35",
@@ -43,7 +43,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.27.1",
     "prettier": "^2.4.1",
-    "prisma": "^2.30.3",
+    "prisma": "^3.5.0",
     "rimraf": "^3.0.2",
     "ts-node": "^10.4.0",
     "typescript": "^4.3.5"
