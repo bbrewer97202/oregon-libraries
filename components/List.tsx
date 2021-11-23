@@ -3,16 +3,15 @@ import ListItem from './ListItem';
 import { Library } from '../types';
 
 type Props = {
-  items: Library[];
+  libraries: Library[];
 };
 
-const List: React.FunctionComponent<Props> = ({ items }) => {
-  console.log('items', items);
+const List: React.FunctionComponent<Props> = ({ libraries }) => {
   return (
     <ul>
-      {items.map((item) => (
-        <li key={item.id}>
-          <ListItem data={item} />
+      {libraries.map((library) => (
+        <li key={library.slug}>
+          <ListItem data={library} />
         </li>
       ))}
     </ul>

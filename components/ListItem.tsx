@@ -8,13 +8,11 @@ type Props = {
 };
 
 const ListItem: React.FunctionComponent<Props> = ({ data }: Props) => {
-  const { libraryName, slug } = data;
+  const { name, slug } = data;
   return (
-    <>
-      <Link href="/library/[id]" as={`/library/${slug}`}>
-        <a>{libraryName}</a>
-      </Link>
-    </>
+    <Link href="/library/[id]" as={`/library/${slug}`}>
+      <a>{name}</a>
+    </Link>
   );
 };
 

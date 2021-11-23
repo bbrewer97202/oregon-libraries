@@ -1,16 +1,17 @@
 import React, { FunctionComponent } from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
-import prisma from '../../lib/prisma';
+
 import { Library } from '../../types';
+import prisma from '../../lib/prisma';
 import Layout from '../../components/Layout';
-import LibraryDetail from '../../components/LibraryDetail';
+import BranchDetail from '../../components/BranchDetail';
 
 type Props = {
-  library?: Library;
+  item?: Library;
   errors?: string;
 };
 
-const StaticPropsDetail: FunctionComponent<Props> = ({ library, errors }) => {
+const StaticPropsDetail: FunctionComponent<Props> = ({ item, errors }) => {
   if (errors) {
     return (
       <Layout title={`Error | Next.js + TypeScript Example`}>
@@ -22,8 +23,8 @@ const StaticPropsDetail: FunctionComponent<Props> = ({ library, errors }) => {
   }
 
   return (
-    <Layout title={`${library ? library.name : 'Library Detail'} | Next.js + TypeScript Example`}>
-      {library && <LibraryDetail library={library} />}
+    <Layout title={`${item ? item.name : 'Branch Detail'} | Branch Detail TODO`}>
+      {item && <BranchDetail branch={item} />}
     </Layout>
   );
 };
@@ -34,8 +35,8 @@ export default StaticPropsDetail;
  * create paths for each libary slug
  */
 export const getStaticPaths: GetStaticPaths = async () => {
-  const libraries = await prisma.library.findMany();
-  const paths = libraries.map((library) => ({ params: { id: library.slug } }));
+  const branches = await prisma.branch.findMany();
+  const paths = branches.map((branch) => ({ params: { id: branch.slug } }));
   return { paths, fallback: false };
 };
 
@@ -45,23 +46,18 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params = {} }) => {
   const slug = (params?.id as string) || undefined;
   try {
-    const library = await prisma.library.findFirst({
+    const branch = await prisma.branch.findFirst({
       where: { slug },
       select: {
         name: true,
         slug: true,
-        branch: {
-          select: {
-            name: true,
-            slug: true,
-          },
-        },
+        address: true,
       },
     });
 
-    console.log('===> library ITEM', JSON.stringify(library, null, 2));
+    console.log('===> branch ITEM', JSON.stringify(branch, null, 2));
 
-    return { props: { library } };
+    return { props: { branch } };
   } catch (error) {
     console.log('error', error);
     return { props: { errors: error } };

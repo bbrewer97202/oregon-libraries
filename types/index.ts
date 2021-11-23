@@ -43,7 +43,7 @@ export type County =
 
 export interface Branch {
     libraryName: string;
-    // slug: string;
+    slug: string;
     branchName: string;
     address: string;
     city: string;
@@ -61,6 +61,6 @@ export interface Branch {
 
 export interface Library {
     name: string;
-    // slug: string;
+    slug: string;
     branches: Branch[];
 }

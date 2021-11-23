@@ -1,45 +1,34 @@
-import { GetStaticProps } from 'next';
-import Link from 'next/link';
-
 import React from 'react';
+import { GetStaticProps } from 'next';
 import { Library } from '../../types';
-import data from '../../data/data.json';
+import prisma from '../../lib/prisma';
 import Layout from '../../components/Layout';
 import List from '../../components/List';
 
 type Props = {
-  items: Library[];
+  libraries: Library[];
 };
 
-const WithStaticProps: React.FunctionComponent<Props> = ({ items }: Props) => {
+const AllLibrariesList: React.FunctionComponent<Props> = ({ libraries }: Props) => {
   return (
-    <Layout title="Users List | Next.js + TypeScript Example">
-      <h1>Library List</h1>
-      <p>
-        Example fetching data from inside <code>getStaticProps()</code>.
-      </p>
-      <p>You are currently on: /Library</p>
-      <List items={items} />
-      <p>
-        <Link href="/">
-          <a>Go home</a>
-        </Link>
-      </p>
+    <Layout title="All Libraries">
+      <h1>All Libraries</h1>
+      <List libraries={libraries} />
     </Layout>
   );
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  // Example for including static props in a Next.js function component page.
-  // Don't forget to include the respective types for any props passed into
-  // the component.
-  // const items: Library = data;
+  const rawLibraries = await prisma.library.findMany();
 
-  console.log('data.length', data.length);
+  // TODO: utility fn or babel-plugin-superjson-next
+  // ensure serializable data
+  const libraries = rawLibraries.map((rawLibrary) => ({
+    ...rawLibrary,
+    createdAt: new Date(rawLibrary.createdAt).toISOString(),
+  }));
 
-  const allLibraries: Library[] = data as Library[];
-
-  return { props: { items: allLibraries } };
+  return { props: { libraries } };
 };
 
-export default WithStaticProps;
+export default AllLibrariesList;

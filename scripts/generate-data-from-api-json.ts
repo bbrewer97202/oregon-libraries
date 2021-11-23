@@ -3,7 +3,7 @@ import { readFile, writeFile } from 'fs/promises';
 import got from 'got';
 // @ts-ignore
 import AddressParser from 'parse-address'; // no @types exist
-// import slugify from 'slugify';
+import slugify from 'slugify';
 import { Branch, County, Library, LibraryMembership, LibraryType } from '../types/index';
 
 // location of JSON source data from open data API
@@ -77,9 +77,11 @@ function getNormalizedAddress(address = '', zipCode = ''): NormalizedAddressValu
 }
 
 function getNormalizedLibraryName(name = ''): NormalizedLibraryValues {
+    console.log(`====== ${name} =====`);
     const nameParts = name.split(' - ');
     const libraryName = nameParts.length ? nameParts[0] : name;
     const branchName = nameParts.length === 2 ? nameParts[1] : nameParts[0];
+    console.log(`libraryName: ${libraryName}, branchName: ${branchName}`);
     return { branchName, libraryName };
 }
 
@@ -95,7 +97,7 @@ function createLibrary(rawLibrary: Record<string, string>): Branch {
         zipCode,
     } = rawLibrary;
     const { libraryName, branchName } = getNormalizedLibraryName(rawLibrary.name);
-    // const slug = slugify(branchName, { replacement: '-', lower: true })
+    const slug = slugify(branchName, { replacement: '-', lower: true, remove: /[*+~.()'"!:@]/g })
     const { shortAddress, city } = getNormalizedAddress(rawLibrary.address, zipCode);
     const county = rawLibrary.county || 'Unknown';
     const geolocation = getNormalizedGeoLocation(rawLibrary.geoAddress);
@@ -103,7 +105,7 @@ function createLibrary(rawLibrary: Record<string, string>): Branch {
     const directorName = getNormalizedDirectorName(directorFirst, directorLast);
 
     return {
-        // slug,
+        slug,
         libraryName,
         branchName,
         address: shortAddress,
@@ -157,9 +159,9 @@ function collateBranches(branches: Branch[]): Library[] {
     // group libraries/branches together
     for (const library of branches) {
         const name: string = library.libraryName;
-        // const slug = slugify(name, { replacement: '-', lower: true })
+        const slug = slugify(name, { replacement: '-', lower: true, remove: /[*+~.()'"!:@]/g })
         if (!libraryBranchMap[name]) {
-            libraryBranchMap[name] = { name, branches: [] };
+            libraryBranchMap[name] = { name, slug, branches: [] };
         }
         libraryBranchMap[name].branches.push(library);
     }

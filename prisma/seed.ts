@@ -12,7 +12,7 @@ async function main(libraryList: Library[]) {
             const data = {
                 name: branchName,
                 address: branch.address,
-                // slug: branch.slug,
+                slug: branch.slug,
                 // geolocation: branch.geolocation,
                 library: {
                     connectOrCreate: {
@@ -20,7 +20,8 @@ async function main(libraryList: Library[]) {
                             name: library.name,
                         },
                         create: {
-                            name: library.name
+                            name: library.name,
+                            slug: library.slug
                         },
                     },
                 },
@@ -65,10 +66,7 @@ async function main(libraryList: Library[]) {
                     },
                 },
             };
-
-            console.log('\n\nDATA', JSON.stringify(data, null, 2));
-            const branchEntry = await prisma.branch.create({ data });
-            console.log('branch: ', branchEntry);
+            await prisma.branch.create({ data });
         }
     }
 }
