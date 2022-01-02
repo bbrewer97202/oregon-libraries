@@ -26,7 +26,7 @@ const Layout: FunctionComponent<Props> = ({ children, title = 'Oregon Libraries'
         <Navigation />
       </header>
       {children}
-      <footer>
+      <footer style={{ marginTop: '100px' }}>
         <span>footer</span>
       </footer>
     </div>

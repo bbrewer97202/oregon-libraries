@@ -50,16 +50,13 @@ export const getStaticProps: GetStaticProps = async ({ params = {} }) => {
       select: {
         name: true,
         slug: true,
-        branch: {
-          select: {
-            name: true,
-            slug: true,
-          },
-        },
+        address: true,
+        geolocation: true,
+        city: true,
+        county: true,
+        zipCode: true,
       },
     });
-
-    console.log('===> library ITEM', JSON.stringify(library, null, 2));
 
     return { props: { library } };
   } catch (error) {

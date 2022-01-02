@@ -8,52 +8,50 @@ generator client {
 }
 
 model Library {
-    id        Int      @id @default(autoincrement())
-    createdAt DateTime @default(now())
-    name      String   @unique
-    slug      String
-    branch    Branch[]
-}
-
-model Branch {
     id            Int         @id @default(autoincrement())
     createdAt     DateTime    @default(now())
     name          String
     slug          String
     address       String
-    // geolocation   String
-    library       Library     @relation(fields: [libraryId], references: [id])
-    libraryId     Int
-    librayType    LibraryType @relation("BranchHasLibraryType", fields: [libraryTypeId], references: [id])
+    geolocation   String?
+    system        System     @relation("LibraryHasSystem", fields: [systemId], references: [id])
+    systemId      Int
+    libraryType   LibraryType @relation("LibraryHasLibraryType", fields: [libraryTypeId], references: [id])
     libraryTypeId Int
-    city          City        @relation("BranchHasCity", fields: [cityId], references: [id])
+    city          City        @relation("LibraryHasCity", fields: [cityId], references: [id])
     cityId        Int
-    county        County      @relation("BranchHasCounty", fields: [countyId], references: [id])
+    county        County      @relation("LibraryHasCounty", fields: [countyId], references: [id])
     countyId      Int
-    zipCode       ZipCode     @relation("BranchHasZipCode", fields: [zipCodeId], references: [id])
+    zipCode       ZipCode     @relation("LibraryHasZipCode", fields: [zipCodeId], references: [id])
     zipCodeId     Int
+}
+
+model System {
+    id        Int      @id @default(autoincrement())
+    name      String   @unique
+    Library Library[] @relation("LibraryHasSystem")
 }
 
 model LibraryType {
     id     Int      @id @default(autoincrement())
     name   String   @unique
-    Branch Branch[] @relation("BranchHasLibraryType")
+    Library Library[] @relation("LibraryHasLibraryType")
 }
 
 model City {
     id     Int      @id @default(autoincrement())
     name   String   @unique
-    Branch Branch[] @relation("BranchHasCity")
+    Library Library[] @relation("LibraryHasCity")
 }
 
 model County {
     id     Int      @id @default(autoincrement())
     name   String   @unique
-    Branch Branch[] @relation("BranchHasCounty")
+    Library Library[] @relation("LibraryHasCounty")
 }
 
 model ZipCode {
     id     Int      @id @default(autoincrement())
     name   String   @unique
-    Branch Branch[] @relation("BranchHasZipCode")
+    Library Library[] @relation("LibraryHasZipCode")
 }

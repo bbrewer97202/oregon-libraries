@@ -1,61 +1,78 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
+import Layout from '../../../components/Layout';
+import prisma from '../../../lib/prisma';
 import Link from 'next/link';
 
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { Library } from '../../../types';
-import data from '../../../data/data.json';
-import Layout from '../../../components/Layout';
-import List from '../../../components/List';
 
 type Props = {
-  items: Library[];
+  librariesByType: Library[];
 };
 
 type LibraryType = string;
 
-const WithStaticProps: React.FunctionComponent<Props> = ({ items }: Props) => {
-  return (
-    <Layout title="Users List | Next.js + TypeScript Example">
-      <h1>Library List</h1>
-      <p>
-        Example fetching data from inside <code>getStaticProps()</code>.
-      </p>
-      <p>You are currently on: /Library</p>
-      <List items={items} />
-      <p>
-        <Link href="/">
-          <a>Go home</a>
+// TODO: library type should be case insensitive
+
+const sortLibraries = (a: Library, b: Library) => {
+  if (a.name > b.name) return 1;
+  if (a.name < b.name) return -1;
+  return 0;
+};
+
+const LibraryTypeDetail: FunctionComponent<Props> = ({ librariesByType }) => {
+  console.log('librariesByType: ', librariesByType);
+  const sortedLibraryList = librariesByType.sort(sortLibraries);
+  const list = sortedLibraryList.map((library) => {
+    return (
+      <li key={library.slug}>
+        <Link href="/library/[id]" as={`/library/${library.slug}`}>
+          <a>{library.name}</a>
         </Link>
-      </p>
+      </li>
+    );
+  });
+  return (
+    <Layout title={`TODO title`}>
+      <ul>{list}</ul>
     </Layout>
   );
 };
 
+export default LibraryTypeDetail;
+
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = data.map((library) => ({
-    params: { libraryType: library.libraryType },
-  }));
+  const libraryTypes = await prisma.libraryType.findMany();
+  const paths = libraryTypes.map((libraryType) => ({ params: { libraryType: libraryType.name } }));
   return { paths, fallback: false };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  // Example for including static props in a Next.js function component page.
-  // Don't forget to include the respective types for any props passed into
-  // the component.
-  // const items: Library = data;
-
   // TODO: how to restrict param to string
   const libraryType: LibraryType =
     params?.libraryType && typeof params?.libraryType === 'string' ? params.libraryType : '';
   console.log('libraryType', libraryType);
+  try {
+    const librariesByType = await prisma.library.findMany({
+      where: {
+        libraryType: {
+          name: libraryType,
+        },
+      },
+      select: {
+        name: true,
+        slug: true,
+        address: true,
+        geolocation: true,
+        city: true,
+        county: true,
+        zipCode: true,
+      },
+    });
 
-  const allLibraries: Library[] = data as Library[];
-  const items = allLibraries.filter((library) => {
-    // console.log(`compare ${library.libraryType.toLowerCase()} to ${libraryType}`);
-    return library.libraryType.toLowerCase() === libraryType.toLowerCase();
-  });
-
-  return { props: { items } };
+    return { props: { librariesByType } };
+  } catch (error) {
+    console.log('error', error);
+    return { props: { librariesByType: [] } };
+  }
 };
-
-export default WithStaticProps;

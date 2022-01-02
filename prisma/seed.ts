@@ -4,71 +4,68 @@ import sourceData from '../data/data.json';
 
 const prisma = new PrismaClient();
 
+// TODO: duplicate data?
 async function main(libraryList: Library[]) {
     for (const library of libraryList) {
-        for (const branch of library.branches) {
-            const { branchName } = branch;
-
-            const data = {
-                name: branchName,
-                address: branch.address,
-                slug: branch.slug,
-                // geolocation: branch.geolocation,
-                library: {
-                    connectOrCreate: {
-                        where: {
-                            name: library.name,
-                        },
-                        create: {
-                            name: library.name,
-                            slug: library.slug
-                        },
+        const data = {
+            name: library.name,
+            address: library.address,
+            slug: library.slug,
+            geolocation: library.geolocation,
+            system: {
+                connectOrCreate: {
+                    where: {
+                        name: library.system,
+                    },
+                    create: {
+                        name: library.system,
                     },
                 },
-                librayType: {
-                    connectOrCreate: {
-                        where: {
-                            name: branch.libraryType,
-                        },
-                        create: {
-                            name: branch.libraryType,
-                        },
+            },
+            libraryType: {
+                connectOrCreate: {
+                    where: {
+                        name: library.libraryType,
+                    },
+                    create: {
+                        name: library.libraryType,
                     },
                 },
-                city: {
-                    connectOrCreate: {
-                        where: {
-                            name: branch.city,
-                        },
-                        create: {
-                            name: branch.city,
-                        },
+            },
+            city: {
+                connectOrCreate: {
+                    where: {
+                        name: library.city,
+                    },
+                    create: {
+                        name: library.city,
                     },
                 },
-                county: {
-                    connectOrCreate: {
-                        where: {
-                            name: branch.county,
-                        },
-                        create: {
-                            name: branch.county,
-                        },
+            },
+            county: {
+                connectOrCreate: {
+                    where: {
+                        name: library.county,
+                    },
+                    create: {
+                        name: library.county,
                     },
                 },
-                zipCode: {
-                    connectOrCreate: {
-                        where: {
-                            name: branch.zipCode,
-                        },
-                        create: {
-                            name: branch.zipCode,
-                        },
+            },
+            zipCode: {
+                connectOrCreate: {
+                    where: {
+                        name: library.zipCode,
+                    },
+                    create: {
+                        name: library.zipCode,
                     },
                 },
-            };
-            await prisma.branch.create({ data });
-        }
+            },
+        };
+        await prisma.library.create({ data });
     }
+
 }
 
 main(sourceData as Library[])

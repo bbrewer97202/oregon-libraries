@@ -41,10 +41,10 @@ export type County =
     | 'Yamhill'
     | 'Unknown';
 
-export interface Branch {
-    libraryName: string;
+export interface Library {
+    name: string;
     slug: string;
-    branchName: string;
+    system: string;
     address: string;
     city: string;
     county: string;
@@ -57,10 +57,4 @@ export interface Branch {
     directorName: string | null;
     directorPhone: string | null;
     directorEmail: string | null;
-}
-
-export interface Library {
-    name: string;
-    slug: string;
-    branches: Branch[];
 }

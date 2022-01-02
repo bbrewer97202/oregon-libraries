@@ -4,7 +4,7 @@ import got from 'got';
 // @ts-ignore
 import AddressParser from 'parse-address'; // no @types exist
 import slugify from 'slugify';
-import { Branch, County, Library, LibraryMembership, LibraryType } from '../types/index';
+import { Library, County, LibraryMembership, LibraryType } from '../types/index';
 
 // location of JSON source data from open data API
 const SRC_URL = 'https://data.oregon.gov/api/views/6x9d-idz4/rows.json?accessType=DOWNLOAD';
@@ -20,14 +20,16 @@ interface APIResponse {
     data: string[][];
 }
 
+type LibrarySystems = Record<string, number>;
+
 interface NormalizedAddressValues {
     shortAddress: string;
     city: string;
 }
 
 interface NormalizedLibraryValues {
-    branchName: string;
-    libraryName: string;
+    system: string;
+    name: string;
 }
 
 async function downloadFile() {
@@ -76,16 +78,14 @@ function getNormalizedAddress(address = '', zipCode = ''): NormalizedAddressValu
     return { city, shortAddress };
 }
 
-function getNormalizedLibraryName(name = ''): NormalizedLibraryValues {
-    console.log(`====== ${name} =====`);
-    const nameParts = name.split(' - ');
-    const libraryName = nameParts.length ? nameParts[0] : name;
-    const branchName = nameParts.length === 2 ? nameParts[1] : nameParts[0];
-    console.log(`libraryName: ${libraryName}, branchName: ${branchName}`);
-    return { branchName, libraryName };
+function getNormalizedLibraryName(rawName = ''): NormalizedLibraryValues {
+    const nameParts = rawName.split(' - ');
+    const system = nameParts.length ? nameParts[0] : rawName;
+    const name = nameParts.length === 2 ? nameParts[1] : nameParts[0];
+    return { system, name };
 }
 
-function createLibrary(rawLibrary: Record<string, string>): Branch {
+function createLibrary(rawLibrary: Record<string, string>, systems: LibrarySystems): Library {
     const {
         directorFirst = null,
         directorLast = null,
@@ -96,8 +96,9 @@ function createLibrary(rawLibrary: Record<string, string>): Branch {
         type = 'UNKNOWN',
         zipCode,
     } = rawLibrary;
-    const { libraryName, branchName } = getNormalizedLibraryName(rawLibrary.name);
-    const slug = slugify(branchName, { replacement: '-', lower: true, remove: /[*+~.()'"!:@]/g })
+    const { system, name } = getNormalizedLibraryName(rawLibrary.name);
+    const systemName = system && systems[system] ? system : 'NO_SYSTEM';
+    const slug = slugify(name, { replacement: '-', lower: true, remove: /[*+~.()'"!:@]/g })
     const { shortAddress, city } = getNormalizedAddress(rawLibrary.address, zipCode);
     const county = rawLibrary.county || 'Unknown';
     const geolocation = getNormalizedGeoLocation(rawLibrary.geoAddress);
@@ -106,8 +107,8 @@ function createLibrary(rawLibrary: Record<string, string>): Branch {
 
     return {
         slug,
-        libraryName,
-        branchName,
+        system: systemName,
+        name,
         address: shortAddress,
         city,
         county: county as County,
@@ -123,7 +124,28 @@ function createLibrary(rawLibrary: Record<string, string>): Branch {
     };
 }
 
-function generateBranches(rawData: string[][]) {
+/**
+ * generate a map of library system names and branch counts within each
+ */
+function generateLibrarySystems(rawData: string[][]): LibrarySystems {
+    const systems: LibrarySystems = {};
+    for (const entry of rawData) {
+        const name = String(entry[8]);
+        const nameParts = name.split(' - ');
+        const systemName = nameParts.length ? nameParts[0] : null;
+        if (systemName) {
+            if (!systems[systemName]) {
+                systems[systemName] = 0;
+            }
+            systems[systemName]++;
+        }
+    }
+
+    // only interested in systems with more than one branch
+    return Object.fromEntries(Object.entries(systems).filter(item => item[1] > 1));
+}
+
+function generateLibraries(rawData: string[][], systems: LibrarySystems) {
     const entityMap: Record<number, string> = {
         8: 'name',
         10: 'address',
@@ -148,24 +170,9 @@ function generateBranches(rawData: string[][]) {
             return library;
         }, {} as Record<string, string>);
 
-        return createLibrary(rawLibraryEntry);
+        return createLibrary(rawLibraryEntry, systems);
     });
     return libraries;
-}
-
-function collateBranches(branches: Branch[]): Library[] {
-    const libraryBranchMap: Record<string, Library> = {};
-
-    // group libraries/branches together
-    for (const library of branches) {
-        const name: string = library.libraryName;
-        const slug = slugify(name, { replacement: '-', lower: true, remove: /[*+~.()'"!:@]/g })
-        if (!libraryBranchMap[name]) {
-            libraryBranchMap[name] = { name, slug, branches: [] };
-        }
-        libraryBranchMap[name].branches.push(library);
-    }
-    return Object.values(libraryBranchMap);
 }
 
 (async () => {
@@ -174,8 +181,8 @@ function collateBranches(branches: Branch[]): Library[] {
     const isExampleRun = true;
     try {
         const rawData = isExampleRun ? await loadFromFilesystem() : await downloadFile();
-        const branches = generateBranches(rawData.data);
-        const libraries = collateBranches(branches);
+        const systems = generateLibrarySystems(rawData.data);
+        const libraries = generateLibraries(rawData.data, systems);
         await saveFile(libraries);
     } catch (error: unknown) {
         if (error instanceof Error) {
