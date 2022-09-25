@@ -1,0 +1,29 @@
+.container {
+  margin: 0 auto;
+  max-width: 60rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #eee;
+  padding: 0.5rem 1.4rem;
+  border-radius: 0.4rem;
+}
+
+.logo {
+  margin: 0;
+  padding: 0;
+}
+
+.logo a:link,
+.logo a:active,
+.logo a:visited {
+  color: #333;
+  text-decoration: none;
+}
+
+.main {
+  padding: 1rem;
+}

@@ -1,7 +1,21 @@
+.container {
+  margin: 0 1rem;
+}
+
 .navItem {
   padding: 0.5rem 1rem;
-  background-color: #336699;
-  color: #ffffff;
   text-decoration: none;
   margin: 0 0.1rem 0 0;
+}
+
+.navItem:link,
+.navItem:active,
+.navItem:visited {
+  color: #333;
+  text-decoration: none;
+}
+
+.navItem:hover {
+  color: rgb(59, 168, 202);
+  text-decoration: underline;
 }

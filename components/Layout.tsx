@@ -1,6 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import Head from 'next/head';
+import Link from 'next/link';
 import Navigation from './Navigation/Navigation';
+import styles from './Layout.module.css';
 
 type Props = {
   title?: string;
@@ -8,7 +10,7 @@ type Props = {
 
 const Layout: FunctionComponent<Props> = ({ children, title = 'Oregon Libraries' }) => {
   return (
-    <div>
+    <div className={styles.container}>
       <Head>
         <title>{title}</title>
         <meta charSet="utf-8" />
@@ -21,14 +23,13 @@ const Layout: FunctionComponent<Props> = ({ children, title = 'Oregon Libraries'
           crossOrigin=""
         />
       </Head>
-      <header>
-        <h1>Oregon Libraries</h1>
+      <header className={styles.header}>
+        <h1 className={styles.logo}>
+          <Link href="/">Oregon Libraries</Link>
+        </h1>
         <Navigation />
       </header>
-      {children}
-      <footer style={{ marginTop: '100px' }}>
-        <span>footer</span>
-      </footer>
+      <main className={styles.main}>{children}</main>
     </div>
   );
 };

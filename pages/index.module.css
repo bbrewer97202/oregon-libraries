@@ -1,0 +1,14 @@
+.heroLinks {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 3rem 0;
+  list-style: none;
+  padding: 0;
+}
+
+@media only screen and (min-width: 640px) {
+  .heroLinks {
+    justify-content: flex-start;
+  }
+}

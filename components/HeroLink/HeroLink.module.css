@@ -2,24 +2,24 @@
 .link:active,
 .link:visited,
 .link:hover {
-  display: flex;
-  align-items: center;
-  padding: 0.8rem;
+  display: block;
+  padding: 1rem;
   margin: 0.4rem;
   text-decoration: none;
-  color: #fff;
-  background-color: rgb(170, 75, 179);
+  color: #333;
+  text-align: center;
+  max-width: 10rem;
 }
 
 .link:hover {
-  background-color: rgb(103, 43, 109);
+  color: rgb(59, 168, 202);
 }
 
 .icon {
   font-size: 2rem;
-  margin: 0 1rem 0 0;
+  margin: 0 0 0.4rem 0;
 }
 
 .label {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }

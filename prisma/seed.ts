@@ -4,7 +4,6 @@ import sourceData from '../data/data.json';
 
 const prisma = new PrismaClient();
 
-// TODO: duplicate data?
 async function main(libraryList: Library[]) {
     for (const library of libraryList) {
         const data = {
@@ -65,7 +64,6 @@ async function main(libraryList: Library[]) {
         };
         await prisma.library.create({ data });
     }
-
 }
 
 main(sourceData as Library[])

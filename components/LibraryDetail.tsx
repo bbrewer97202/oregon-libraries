@@ -1,8 +1,9 @@
 import * as React from 'react';
 
 // import Link from 'next/link';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 import { Library } from '../types';
+// import Map from './Map/Map';
 
 import dynamic from 'next/dynamic';
 
@@ -24,7 +25,7 @@ type ListDetailProps = {
 
 const LibraryDetail: React.FunctionComponent<ListDetailProps> = ({ library }) => {
   console.log('library: ', library);
-  const Map = dynamic(() => import('./Map/Map'), { ssr: false });
+  const LibraryMap = dynamic(() => import('./Map/Map'), { ssr: false });
   const { address, city = {}, geolocation, name, zipCode = {} } = library;
   const cityName = city?.name || '';
   const zip = zipCode?.name || '';
@@ -74,7 +75,7 @@ const LibraryDetail: React.FunctionComponent<ListDetailProps> = ({ library }) =>
       {cityName && <p>{cityName}, OR</p>}
       {zip && <p>{zip}</p>}
       <p>geolocation: {geolocation}</p>
-      <Map name={name} location={geolocation} />
+      <LibraryMap location={geolocation} />
     </div>
   );
 };
