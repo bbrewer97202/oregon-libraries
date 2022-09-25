@@ -1,6 +1,6 @@
 import * as React from 'react';
-import dynamic from 'next/dynamic';
-import Link from 'next/link';
+// import dynamic from 'next/dynamic';
+// import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Branch } from '../types';
 
