@@ -1,6 +1,8 @@
 # Oregon Libraries
 
-Directory of Oregon libraries with content from [data.gov](https://catalog.data.gov/dataset/oregon-library-directory).
+This project transforms a dataset from [data.gov](https://catalog.data.gov/dataset/oregon-library-directory) into relational a data model. The resultant database then powers simple a front end to display Oregon library details.
+
+Ongoing work in progress...
 
 ## Quick Start
 
