@@ -7,6 +7,7 @@ type Props = {
 };
 
 const LibraryList: React.FunctionComponent<Props> = ({ libraries }) => {
+  console.log('ALL LIBRARIES', libraries);
   const libraryList = libraries.map((library) => (
     <li key={library.slug}>
       <Link href="/library/[id]" as={`/library/${library.slug}`}>

@@ -1,38 +1,25 @@
 import * as React from 'react';
-
-// import Link from 'next/link';
-// import { useRouter } from 'next/router';
-import { Library } from '../types';
-// import Map from './Map/Map';
-
+import styles from './LibraryDetail.module.css';
+import { Library, NamedDescriptor } from '../types';
 import dynamic from 'next/dynamic';
 
-// type LatLongCoordinates = [number, number];
-
-// type LibraryDescriptor = {
-//   name: string;
-//   slug: string;
-// };
-
-// type BranchDescriptor = {
-//   name: string;
-//   slug: string;
-// };
-
-type ListDetailProps = {
-  library: Library;
+type LibraryDetail = Library & {
+  city: NamedDescriptor;
+  county: NamedDescriptor;
+  zipCode: NamedDescriptor;
 };
 
-const LibraryDetail: React.FunctionComponent<ListDetailProps> = ({ library }) => {
+type ListDetailProps = {
+  library: LibraryDetail;
+};
+
+const LibraryDetailView: React.FunctionComponent<ListDetailProps> = ({ library }) => {
   console.log('library: ', library);
   const LibraryMap = dynamic(() => import('./Map/Map'), { ssr: false });
-  const { address, city = {}, geolocation, name, zipCode = {} } = library;
+  const { address, city, county, geolocation, name, zipCode } = library;
   const cityName = city?.name || '';
   const zip = zipCode?.name || '';
-  //   const coordinates = typeof geolocation === 'string' && getCoordinatesFromLocation(geolocation);
-  //   console.log('parent coordinates', coordinates);
-  //   const router = useRouter();
-  //   const { id: libraryId } = router.query;
+  const countyName = county?.name || '';
 
   // website links
   //   const webLinks = website.map((site) => {
@@ -70,14 +57,16 @@ const LibraryDetail: React.FunctionComponent<ListDetailProps> = ({ library }) =>
 
   return (
     <div>
-      <h2>{name}</h2>
-      <p>{address}</p>
-      {cityName && <p>{cityName}, OR</p>}
-      {zip && <p>{zip}</p>}
-      <p>geolocation: {geolocation}</p>
+      <h2 className={styles.header}>{name}</h2>
+      <h3 className={styles.county}>{countyName} County</h3>
+      <address className={styles.location}>
+        <p>{address}</p>
+        {cityName && <p>{cityName}, OR</p>}
+        {zip && <p>{zip}</p>}
+      </address>
       <LibraryMap location={geolocation} />
     </div>
   );
 };
 
-export default LibraryDetail;
+export default LibraryDetailView;

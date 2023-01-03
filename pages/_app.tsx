@@ -2,8 +2,8 @@ import { AppProps } from 'next/app';
 import React from 'react';
 import '../styles.css';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function OregonLibraries({ Component, pageProps }: AppProps) {
   return <Component {...pageProps} />;
 }
 
-export default MyApp;
+export default OregonLibraries;
