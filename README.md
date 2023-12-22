@@ -1,8 +1,6 @@
 # Oregon Libraries
 
-This project transforms a dataset from [data.gov](https://catalog.data.gov/dataset/oregon-library-directory) into relational a data model. The resultant database then powers simple a front end to display Oregon library details.
-
-Ongoing work in progress...
+Transform dataset from [data.gov](https://catalog.data.gov/dataset/oregon-library-directory) into relational model. Next.js app displays Oregon library details.
 
 ## Quick Start
 
@@ -39,18 +37,3 @@ If you want to get into the detailed steps that `npm run initialize` manages, ru
 4.  Preview results in Prisma visual tool:
 
         npx prisma studio
-
-## Todo
-
-### Short Term
-
-- add to seed: geolocation
-- the entire front end currently broken & unrealized
-
-### Long term
-
-1. Direct link to each type of library type (e.g. Volunteer, Tribal, etc.)
-   http://localhost:3000/library/type/Academic
-2. search by zip code
-3. browse/search by county
-4. use SWR or comparable
